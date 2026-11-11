@@ -8,7 +8,7 @@ Os arquivos aqui são os usados pelos notebooks. Conferir o termo de uso de cada
 | `ba_municipios.gpkg` | IBGE, Malha Municipal Digital (camada `ba_municipios_2025`; mantidos só `CD_MUN`, `NM_MUN` e a geometria) | Malha municipal da Bahia | 2025 | a preencher | ok: 417 municípios, SIRGAS 2000; códigos e nomes casam 417/417 com o PIB |
 | `Estados_brasileiros.gpkg` | IBGE, Malha Municipal Digital (camada `br_uf_2025`, convertida de `BR_UF_2025/BR_UF_2025.shp`) | Unidades da Federação | 2025 | a preencher | ok: 27 UFs, SIRGAS 2000 (EPSG:4674); coordenadas e atributos idênticos ao shapefile |
 | população por município | IBGE, SIDRA | Censo 2022, população residente | 2022 | a preencher | pendente |
-| migração de e para a Bahia | IBGE, SIDRA | Censo 2022, migração de data fixa | 2017 a 2022 | a preencher | pendente |
+| migração de e para a Bahia | IBGE, SIDRA | Censo 2022, migração de data fixa | 2017 a 2022 | 10/11/2026 | ok: 417 municipios |
 
 ## Notas
 
