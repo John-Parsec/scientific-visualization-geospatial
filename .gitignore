@@ -218,3 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- Visualização Científica: arquivos grandes e temporários ---
+.~lock.*#
+data/29_BA/
