@@ -1,8 +1,11 @@
 # Visualização Científica · Atividade final · Dupla A · Geoespacial
 
-DEC1217 · PPGMC/UESC · Cap. 7 de Schwabish, *Better Data Visualizations* (2021) · Apresentação em 18/11/2026
+DEC1217 · PPGMC/UESC · Cap. 7 de Schwabish, *Better Data Visualizations* (2021)
 
-**Integrantes:** [preencher]
+**Integrantes:**
+
+- Brenda
+- João Manoel Almeida Oliveira
 
 ## Tema-fio
 
