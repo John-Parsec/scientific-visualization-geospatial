@@ -30,6 +30,7 @@ utils.py                                      funções e estilo compartilhados 
 data/                                         dados de entrada e data/README.md
 figs/                                         figuras exportadas pelos notebooks
 slides.pptx                                   slides da apresentação
+slides.pdf                                    slides da apresentação
 requirements.txt                              dependências
 ```
 
