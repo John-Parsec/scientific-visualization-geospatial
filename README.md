@@ -4,7 +4,7 @@ DEC1217 · PPGMC/UESC · Cap. 7 de Schwabish, *Better Data Visualizations* (2021
 
 **Integrantes:**
 
-- Brenda
+- Brenda Castro da Silva
 - João Manoel Almeida Oliveira
 
 ## Tema-fio
