@@ -1,30 +1,53 @@
 # Dados
 
-Os arquivos aqui são os usados pelos notebooks. Conferir o termo de uso de cada fonte no portal do IBGE antes da entrega.
+Esta pasta reúne os arquivos de dados lidos pelos notebooks `topico_004_01` a `topico_004_04`. Todos são produtos públicos do IBGE,.
 
-| Arquivo | Fonte | Produto | Ano | Acesso | Usado em | Status |
-| --- | --- | --- | --- | --- | --- | --- |
-| `tabela5938.csv` | IBGE, SIDRA | Tabela 5938, PIB dos Municípios (referência 2010) | 2022 | 10/11/2026 | 01, 02, 03 | ok: 417 municípios, com código em `Cód.` |
-| `tabela_2_1_BA.xlsx` | IBGE, SIDRA | Tabela 4714, Censo 2022: população residente, área e densidade, por município | 2022 | a preencher | 01, 02, 03 | ok: 417 municípios; soma da população = total da Bahia (14.141.626) |
-| `ba_municipios.gpkg` | IBGE, Malha Municipal Digital (camada `ba_municipios_2025`; mantidos só `CD_MUN`, `NM_MUN` e a geometria) | Malha municipal da Bahia | 2025 | a preencher | 01, 02, 03 | ok: 417 municípios, SIRGAS 2000; códigos e nomes casam 417/417 com o PIB e com a população |
-| `Estados_brasileiros.gpkg` | IBGE, Malha Municipal Digital (camada `br_uf_2025`, convertida de `BR_UF_2025/BR_UF_2025.shp`) | Unidades da Federação | 2025 | a preencher | 01, 03 (contorno), 04 | ok: 27 UFs, SIRGAS 2000 (EPSG:4674); coordenadas e atributos idênticos ao shapefile |
-| `tabela10159 (1).xlsx` | IBGE, SIDRA | Tabela 10159, Censo 2022: UF de residência 5 anos antes × UF de residência atual (resultados preliminares) | 2017 a 2022 | a preencher | 04 | matriz UF × UF; não há detalhe por município |
+## Arquivos usados
 
-## Notas
+| Arquivo | Conteúdo | Fonte | Usado em |
+| --- | --- | --- | --- |
+| `tabela5938.csv` | PIB dos Municípios (PIB a preços correntes, em mil reais, e participações), 2022. 417 municípios da Bahia | IBGE, SIDRA, tabela 5938 (referência 2010) | 01, 02, 03 |
+| `tabela_2_1_BA.xlsx` | População residente, área e densidade demográfica por município, Censo 2022 | IBGE, SIDRA, tabela 4714 | 01, 02, 03 |
+| `ba_municipios.gpkg` | Malha municipal da Bahia, 2025 (camada `ba_municipios_2025`; mantidos só `CD_MUN`, `NM_MUN` e a geometria) | IBGE, Malha Municipal Digital | 01, 03 |
+| `Estados_brasileiros.gpkg` | Unidades da Federação, 2025 (camada `br_uf_2025`, convertida de `BR_UF_2025.shp`). Serve de contorno da Bahia | IBGE, Malha Municipal Digital | 01, 03 |
+| `BA_Municipios_2022.shp` (com `.shx`, `.dbf`, `.prj`, `.cpg`) | Malha municipal da Bahia, 2022 (417 municípios) | IBGE, Malha Municipal Digital 2022 | 02 |
+| `BR_UF_2022.shp` (com `.shx`, `.dbf`, `.prj`, `.cpg`) | Unidades da Federação, 2022 (27 UFs) | IBGE, Malha Municipal Digital 2022 | 04 |
+| `tabela10159.xlsx` | Matriz UF × UF: pessoas de 5 anos ou mais que não residiam na UF 5 anos antes, por UF de residência 5 anos antes, Censo 2022 (resultados preliminares) | IBGE, SIDRA, tabela 10159 | 04 |
 
-- `tabela5938.csv`: separador `;`, vírgula decimal, uma linha de cabeçalho e a coluna `Cód.` com o código IBGE de 7 dígitos (ler como texto). Os valores de PIB estão em mil reais.
-- `tabela_2_1_BA.xlsx`: planilha `Tabela`, cabeçalho nas 4 primeiras linhas (`skiprows=4`); as linhas de município terminam em "(BA)". O cruzamento com a malha é pelo nome, `NM_MUN` + " (BA)", e os 417 nomes casam.
-- O PIB per capita não vem pronto; é calculado nos notebooks como PIB 2022 (mil R$ × 1.000) ÷ população do Censo 2022, em R$ por habitante.
-- As colunas de valor adicionado por setor da tabela 5938 vêm como `...` (indisponíveis para 2022, conforme a nota do IBGE na própria tabela) e não são usadas.
-- O cruzamento do PIB com a malha é feito pelo código (`Cód.` = `CD_MUN`).
-- As duas malhas são da edição 2025 do IBGE: a área da Bahia em `Estados_brasileiros.gpkg` (564.764 km²) coincide com a soma das áreas dos municípios.
-- Os mapas são reprojetados para uma projeção de área igual (Albers cônica ajustada à Bahia, definida em `vis_geo.py`) antes de desenhar. O "antes" do slide de projeção (Web Mercator) sai da reprojeção do contorno para EPSG:3857 no próprio notebook 01.
-- Para desenhar mais rápido, os polígonos são simplificados em 150 m **só na hora de plotar**; áreas e sorteio de pontos usam a geometria original.
-- Uso da malha: o `LEIA-ME.txt` que acompanha `BR_UF_2025/` remete à Nota Metodológica "Informações técnicas e legais para a utilização dos dados publicados", da Malha Municipal, no portal do IBGE.
+Os arquivos de uma mesma linha com várias extensões (shapefile) precisam ficar juntos na pasta. Os notebooks 01 e 03 leem os arquivos pelo módulo `utils.py` (`carregar_bahia` e `contorno_bahia`).
 
-## Arquivos na pasta que os notebooks não usam
+Se `BR_UF_2022.shp` não estiver na pasta, o notebook 04 tenta baixar as UFs pelo pacote `geobr`; sem ele, mostra só os pontos das UFs.
 
-- `tabela10157.csv`: tabela 10157 (estrangeiros por país de nascimento). Não é migração interna e não entra em nenhum notebook.
-- `BA_Municipios_2022.shp`: shapefile sem os arquivos auxiliares (`.dbf`, `.shx`, `.prj`); não abre e é redundante com `ba_municipios.gpkg`.
-- `area_de_estudo.gpkg` (83 municípios do projeto de georreferenciamento) e `Bahia.gpkg` (contorno antigo em Mercator): não usados.
-- `29_BA/` (Censo bruto 2022): fora do repositório, listado no `.gitignore`.
+## Fonte, data de acesso e licença
+
+| Arquivo | Acesso |
+| --- | --- |
+| `tabela5938.csv` | 10/11/2026 |
+| `tabela_2_1_BA.xlsx` | a preencher |
+| `ba_municipios.gpkg` | a preencher |
+| `Estados_brasileiros.gpkg` | a preencher |
+| `BA_Municipios_2022.*` | a preencher |
+| `BR_UF_2022.*` | a preencher |
+| `tabela10159.xlsx` | a preencher |
+
+**Licença.** São dados públicos do IBGE, publicados como dados abertos (Política de Dados Abertos do Poder Executivo federal, Decreto nº 8.777/2016). Nas páginas do IBGE e no *Leia-me* da malha municipal que consultamos não encontramos uma licença nomeada. A condição que seguimos é citar o IBGE como fonte: todas as figuras trazem a linha "Fonte: IBGE ...". Antes de redistribuir os arquivos fora deste trabalho, convém conferir os termos no site do IBGE.
+
+**Malha municipal.** O próprio IBGE avisa que a Malha Municipal Digital não é a malha oficial da divisão político-administrativa, que os limites são aproximados e que a linha de costa não serve para fins econômicos ou ambientais (*Leia-me* da malha 2022). Aqui ela serve só para desenhar os mapas.
+
+**Onde baixar.**
+
+- Tabelas: SIDRA, https://sidra.ibge.gov.br (tabelas 5938, 4714 e 10159).
+- Malhas: IBGE, Geociências, Organização do território, Malhas territoriais, Malhas municipais (anos 2022 e 2025).
+
+## Verificações
+
+- `tabela5938.csv`: 417 municípios, com o código IBGE na coluna `Cód.`.
+- `tabela_2_1_BA.xlsx`: 417 municípios; a soma da população é igual ao total da Bahia (14.141.626).
+- `ba_municipios.gpkg` e `BA_Municipios_2022.shp`: 417 municípios cada, em SIRGAS 2000 (EPSG:4674). Os códigos e nomes de `ba_municipios.gpkg` casam 417 de 417 com o PIB e com a população; o notebook 02 casa a malha 2022 pelo nome normalizado.
+- `Estados_brasileiros.gpkg`: 27 UFs; coordenadas e atributos idênticos ao shapefile de origem.
+- `BR_UF_2022.shp`: 27 UFs, SIRGAS 2000 (EPSG:4674).
+- `tabela10159.xlsx`: só há matriz UF × UF; não existe detalhe por município.
+
+## Arquivos gerados pelos notebooks
+
+Ao rodar, o notebook 02 grava `dados_cartograma_bahia.csv` e o notebook 04 grava `fluxos_entrada_bahia.csv` e `fluxos_saida_bahia.csv`, na pasta de onde o notebook é executado. São resultados derivados dos dados acima, não dados de entrada.
